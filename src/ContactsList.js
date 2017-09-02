@@ -1,11 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './index.css'
 
 
-class ContactsList extends Component {
-
-    render() {
-        const contacts = this.props.contacts;
+function ContactsList (props) {
+        const contacts = props.contacts;
 
         return (
             <ul className="contact-list">
@@ -25,7 +23,6 @@ class ContactsList extends Component {
                 ) }
             </ul>
         )
-    }
 }
 
 export default ContactsList;
