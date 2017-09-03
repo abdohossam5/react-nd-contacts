@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './index.css'
+import './index.css';
+import EscapeRegExp from 'escape-string-regexp';
+import sortBy from  'sort-by';
 
 class ContactsList extends React.Component {
 
@@ -20,6 +22,12 @@ class ContactsList extends React.Component {
     }
 
     render() {
+        let viewContacts = this.props.contacts.sort(sortBy('name'));
+
+        if(this.state.query){
+            let match = new RegExp(EscapeRegExp(this.state.query), 'i');
+            viewContacts = viewContacts.filter(c => match.test(c.name));
+        }
         return (
             <div className="list-contacts">
                 <div className="list-contacts-top">
@@ -30,7 +38,7 @@ class ContactsList extends React.Component {
                            onChange={(e) => this.updateQuery(e.target.value)}/>
                 </div>
                 <ul className="contact-list">
-                    {this.props.contacts.map((contact) =>
+                    {viewContacts.map((contact) =>
                         (
                             <li className="contact-list-item" key={contact.id}>
                                 <div className="contact-avatar" style={{
