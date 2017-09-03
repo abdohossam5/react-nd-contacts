@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './index.css';
 import EscapeRegExp from 'escape-string-regexp';
@@ -41,7 +42,9 @@ class ContactsList extends React.Component {
                            type="text"
                            placeholder="Search Here"
                            value={query}
-                           onChange={(e) => this.updateQuery(e.target.value)}/>
+                           onChange={(e) => this.updateQuery(e.target.value)}
+                    />
+                    <Link className="add-contact" to="/create"> Create Contact </Link>
                 </div>
 
                 {viewContacts.length !== contacts.length && (
