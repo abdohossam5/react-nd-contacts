@@ -21,6 +21,10 @@ class ContactsList extends React.Component {
         })
     }
 
+    resetQuery(){
+        this.setState({query: ''})
+    }
+
     render() {
         const {contacts, onDeleteContact} = this.props;
         const {query} = this.state;
@@ -39,6 +43,14 @@ class ContactsList extends React.Component {
                            value={query}
                            onChange={(e) => this.updateQuery(e.target.value)}/>
                 </div>
+
+                {viewContacts.length !== contacts.length && (
+                    <div className="showing-contacts">
+                        <span>Showing {viewContacts.length} of {contacts.length}</span>
+                        <button onClick={() => this.resetQuery()}>show all</button>
+                    </div>
+                )}
+
                 <ul className="contact-list">
                     {viewContacts.map((contact) =>
                         (
