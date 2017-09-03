@@ -22,10 +22,12 @@ class ContactsList extends React.Component {
     }
 
     render() {
-        let viewContacts = this.props.contacts.sort(sortBy('name'));
+        const {contacts, onDeleteContact} = this.props;
+        const {query} = this.state;
+        let viewContacts = contacts.sort(sortBy('name'));
 
-        if(this.state.query){
-            let match = new RegExp(EscapeRegExp(this.state.query), 'i');
+        if(query){
+            let match = new RegExp(EscapeRegExp(query), 'i');
             viewContacts = viewContacts.filter(c => match.test(c.name));
         }
         return (
@@ -34,7 +36,7 @@ class ContactsList extends React.Component {
                     <input className="search-contacts"
                            type="text"
                            placeholder="Search Here"
-                           value={this.state.query}
+                           value={query}
                            onChange={(e) => this.updateQuery(e.target.value)}/>
                 </div>
                 <ul className="contact-list">
@@ -48,7 +50,7 @@ class ContactsList extends React.Component {
                                     <p>{contact.name}</p>
                                     <p>{contact.email}</p>
                                 </div>
-                                <button onClick={() => this.props.onDeleteContact(contact)} className="contact-remove">
+                                <button onClick={() => onDeleteContact(contact)} className="contact-remove">
                                     Remove
                                 </button>
                             </li>
