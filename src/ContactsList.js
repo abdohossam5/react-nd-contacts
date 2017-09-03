@@ -9,26 +9,45 @@ class ContactsList extends React.Component {
         onDeleteContact: PropTypes.func.isRequired
     };
 
+    state = {
+        query: ''
+    };
+
+    updateQuery(query) {
+        this.setState({
+            query
+        })
+    }
+
     render() {
         return (
-            <ul className="contact-list">
-                {this.props.contacts.map((contact) =>
-                    (
-                        <li className="contact-list-item" key={contact.id}>
-                            <div className="contact-avatar" style={{
-                                backgroundImage: `url(${contact.avatarURL})`
-                            }}/>
-                            <div className="contact-details">
-                                <p>{contact.name}</p>
-                                <p>{contact.email}</p>
-                            </div>
-                            <button onClick={() => this.props.onDeleteContact(contact)} className="contact-remove">
-                                Remove
-                            </button>
-                        </li>
-                    )
-                )}
-            </ul>
+            <div className="list-contacts">
+                <div className="list-contacts-top">
+                    <input className="search-contacts"
+                           type="text"
+                           placeholder="Search Here"
+                           value={this.state.query}
+                           onChange={(e) => this.updateQuery(e.target.value)}/>
+                </div>
+                <ul className="contact-list">
+                    {this.props.contacts.map((contact) =>
+                        (
+                            <li className="contact-list-item" key={contact.id}>
+                                <div className="contact-avatar" style={{
+                                    backgroundImage: `url(${contact.avatarURL})`
+                                }}/>
+                                <div className="contact-details">
+                                    <p>{contact.name}</p>
+                                    <p>{contact.email}</p>
+                                </div>
+                                <button onClick={() => this.props.onDeleteContact(contact)} className="contact-remove">
+                                    Remove
+                                </button>
+                            </li>
+                        )
+                    )}
+                </ul>
+            </div>
         )
     }
 }
