@@ -1,14 +1,18 @@
 import React from 'react';
-import PropTypes from  'prop-types';
+import PropTypes from 'prop-types';
 import './index.css'
 
+class ContactsList extends React.Component {
 
-function ContactsList (props) {
-        const contacts = props.contacts;
+    static propTypes = {
+        contacts: PropTypes.array.isRequired,
+        onDeleteContact: PropTypes.func.isRequired
+    };
 
+    render() {
         return (
             <ul className="contact-list">
-                { contacts.map( (contact) =>
+                {this.props.contacts.map((contact) =>
                     (
                         <li className="contact-list-item" key={contact.id}>
                             <div className="contact-avatar" style={{
@@ -18,17 +22,16 @@ function ContactsList (props) {
                                 <p>{contact.name}</p>
                                 <p>{contact.email}</p>
                             </div>
-                            <button onClick={() => props.onDeleteContact(contact)} className="contact-remove">Remove</button>
+                            <button onClick={() => this.props.onDeleteContact(contact)} className="contact-remove">
+                                Remove
+                            </button>
                         </li>
                     )
-                ) }
+                )}
             </ul>
         )
+    }
 }
 
-ContactsList.propTypes = {
-    contacts: PropTypes.array.isRequired,
-    onDeleteContact: PropTypes.func.isRequired
-};
 
 export default ContactsList;
